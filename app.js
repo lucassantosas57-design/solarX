@@ -17,6 +17,7 @@ const state = {
   avatar: "👦",
   theme: "light",
   lastStudyDate: null,
+  isLoggedIn: false,
   
   // Variáveis de sessão (estado volátil)
   currentView: "dashboard",
@@ -127,6 +128,7 @@ function loadState() {
       state.avatar = parsed.avatar || "👦";
       state.theme = parsed.theme || "light";
       state.lastStudyDate = parsed.lastStudyDate || null;
+      state.isLoggedIn = parsed.isLoggedIn || false;
     } catch (e) {
       console.error("Erro ao carregar o estado salvo, reiniciando.", e);
     }
@@ -170,7 +172,8 @@ function saveState() {
     name: state.name,
     avatar: state.avatar,
     theme: state.theme,
-    lastStudyDate: state.lastStudyDate
+    lastStudyDate: state.lastStudyDate,
+    isLoggedIn: state.isLoggedIn
   }));
 }
 
@@ -232,11 +235,17 @@ function addXP(amount) {
 }
 
 // --- VIEW ROUTING SYSTEM ---
-const views = ["dashboard", "subject", "quiz", "video", "leaderboard", "profile"];
+const views = ["landing", "dashboard", "subject", "quiz", "video", "leaderboard", "profile"];
 
 function switchView(viewName) {
   playSound('click');
   state.currentView = viewName;
+  
+  if (viewName === "landing") {
+    document.body.classList.add("logged-out");
+  } else {
+    document.body.classList.remove("logged-out");
+  }
   
   // Esconder todas as telas
   views.forEach(v => {
@@ -254,7 +263,7 @@ function switchView(viewName) {
   
   // Mostrar/Esconder a barra superior (não mostramos no Quiz para foco)
   const topBar = document.getElementById("top-status-bar");
-  if (viewName === "quiz") {
+  if (viewName === "quiz" || viewName === "landing") {
     topBar.style.display = "none";
   } else {
     topBar.style.display = "flex";
@@ -973,7 +982,52 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("quiz-submit-btn").addEventListener("click", checkQuizAnswer);
   document.getElementById("feedback-continue-btn").addEventListener("click", advanceQuiz);
   
+  // Botões de Landing Page e Auth
+  const btnVamosEstudar = document.getElementById("btn-vamos-estudar");
+  if (btnVamosEstudar) {
+    btnVamosEstudar.addEventListener("click", () => {
+      playSound('click');
+      state.isLoggedIn = true;
+      saveState();
+      switchView("dashboard");
+    });
+  }
+  
+  const btnLogin = document.getElementById("btn-login");
+  if (btnLogin) {
+    btnLogin.addEventListener("click", () => {
+      playSound('click');
+      const savedName = prompt("Qual é o seu nome de usuário?", state.name);
+      if (savedName && savedName.trim().length > 0) {
+        state.name = savedName.trim().substring(0, 20);
+        state.isLoggedIn = true;
+        document.getElementById("profile-name-display").textContent = state.name;
+        saveState();
+        switchView("dashboard");
+      }
+    });
+  }
+  
+  const btnRegister = document.getElementById("btn-register");
+  if (btnRegister) {
+    btnRegister.addEventListener("click", () => {
+      playSound('click');
+      const newName = prompt("Crie seu novo usuário. Qual será seu nome?", "");
+      if (newName && newName.trim().length > 0) {
+        state.name = newName.trim().substring(0, 20);
+        state.isLoggedIn = true;
+        document.getElementById("profile-name-display").textContent = state.name;
+        saveState();
+        switchView("dashboard");
+      }
+    });
+  }
+
   // Carregar estado salvo e iniciar
   loadState();
-  switchView("dashboard");
+  if (state.isLoggedIn) {
+    switchView("dashboard");
+  } else {
+    switchView("landing");
+  }
 });

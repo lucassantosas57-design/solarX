@@ -7,7 +7,7 @@
   <title>solarX ODS 4 - Plataforma Educacional Gamificada</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="logged-out">
   <div class="app-container">
     <!-- Sidebar Navigation -->
     <nav class="sidebar" aria-label="Navegação Principal">
@@ -65,6 +65,20 @@
 
       <!-- App Views (Single Page Router Containers) -->
       
+      <!-- 0. LANDING VIEW (Welcome & Auth) -->
+      <section id="view-landing" class="app-view">
+        <div class="landing-container">
+          <div class="landing-logo">☀️</div>
+          <h1 class="landing-title">solar<span>X</span> Educação</h1>
+          <p class="landing-subtitle">Aprenda Matemática, Português, Ciências, História e Geografia brincando!</p>
+          <div class="auth-buttons">
+            <button class="btn-tactile btn-primary" id="btn-vamos-estudar">Vamos Estudar</button>
+            <button class="btn-tactile btn-secondary" id="btn-login">Login</button>
+            <button class="btn-tactile btn-neutral" id="btn-register">Cadastre-se</button>
+          </div>
+        </div>
+      </section>
+
       <!-- 1. DASHBOARD VIEW (Subjects Selection) -->
       <section id="view-dashboard" class="app-view">
         <h2 class="dashboard-title">Olá, Estudante! 👋</h2>
