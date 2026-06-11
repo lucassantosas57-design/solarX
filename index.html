@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDULIMGO - Aprendizado Escolar Gamificado</title>
+    
+    <!-- Meta Tags SEO -->
+    <meta name="description" content="EDULIMGO é uma plataforma gamificada e interativa para estudantes dominarem Matemática, Ciências, Geografia, História e Português acumulando XP e ofensivas.">
+    <meta name="keywords" content="educação, gamificação, escola, matemática, ciências, português, geografia, história, quiz, aprendizado">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Cabeçalho Principal (Navegação) -->
+    <header id="main-header" class="main-header hidden">
+        <div class="header-container">
+            <div class="header-left" id="btn-logo-home">
+                <img src="logo.png" alt="EDULIMGO Logo" class="header-logo">
+                <span class="header-title">EDULIMGO</span>
+            </div>
+            
+            <nav class="header-nav">
+                <button id="nav-dashboard" class="nav-link active" title="Painel de Estudos">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Painel</span>
+                </button>
+                <button id="nav-profile" class="nav-link" title="Meu Perfil">
+                    <i data-lucide="user"></i>
+                    <span>Perfil</span>
+                </button>
+            </nav>
+
+            <div class="header-status">
+                <div class="status-item streak" title="Ofensiva Diária (Dias Seguidos)">
+                    <i data-lucide="flame" class="icon-streak"></i>
+                    <span id="header-streak-value">1</span>
+                </div>
+                <div class="status-item xp" title="Experiência Acumulada (XP)">
+                    <i data-lucide="sparkles" class="icon-xp"></i>
+                    <span id="header-xp-value">0</span>
+                </div>
+                <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Tema">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Container Principal da SPA -->
+    <main class="main-container">
+        
+        <!-- ================= VISTA: LANDING PAGE ================= -->
+        <section id="landing-view" class="view-section active">
+            <div class="landing-hero">
+                <div class="logo-wrapper animate-float">
+                    <img src="logo.png" alt="EDULIMGO" class="landing-logo">
+                </div>
+                <h1 class="landing-title">Estudar nunca foi tão divertido!</h1>
+                <p class="landing-subtitle">Domine Matemática, Ciências, Geografia, História e Português jogando. Acumule XP, mantenha sua ofensiva ativa e conquiste o topo!</p>
+                <button id="btn-start-playing" class="btn btn-primary btn-lg btn-3d">
+                    <span>Começar a Estudar</span>
+                    <i data-lucide="arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon bg-orange">
+                        <i data-lucide="flame"></i>
+                    </div>
+                    <h3>Ofensiva Diária</h3>
+                    <p>Mantenha o hábito estudando todos os dias e veja seu contador de ofensiva queimar como fogo!</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon bg-violet">
+                        <i data-lucide="award"></i>
+                    </div>
+                    <h3>Conquistas Gamificadas</h3>
+                    <p>Desbloqueie insígnias exclusivas à medida que resolve desafios e acerta respostas nas lições.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon bg-green">
+                        <i data-lucide="book-open"></i>
+                    </div>
+                    <h3>Matérias Escolares</h3>
+                    <p>Perguntas elaboradas para o ensino fundamental e médio. Estude o que cai nas provas jogando.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VISTA: DASHBOARD ================= -->
+        <section id="dashboard-view" class="view-section hidden">
+            <div class="dashboard-header-card">
+                <div class="profile-summary">
+                    <div class="avatar-circle">
+                        <i data-lucide="graduation-cap"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="student-name">Estudante Edulimgo</h2>
+                        <div class="level-badge">
+                            <span id="student-level">Nível 1 - Iniciante</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="xp-progress-container">
+                    <div class="xp-labels">
+                        <span id="xp-current">0 XP</span>
+                        <span id="xp-target">100 XP para Nível 2</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div id="xp-progress-fill" class="progress-bar-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Escolha uma Matéria para Praticar</h2>
+            
+            <div class="subjects-grid">
+                <!-- Card de Matemática -->
+                <div class="subject-card card-math" data-subject="matematica">
+                    <div class="subject-card-body">
+                        <div class="subject-icon">
+                            <i data-lucide="binary"></i>
+                        </div>
+                        <h3>Matemática</h3>
+                        <p>Desafios de álgebra, frações, geometria e lógica rápida.</p>
+                        <div class="subject-status">
+                            <span id="status-matematica">Nível 1 - Básico</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-subject btn-3d btn-math-theme btn-start-subject" data-subject="matematica">
+                        <span>Jogar Lição</span>
+                        <i data-lucide="play"></i>
+                    </button>
+                </div>
+
+                <!-- Card de Ciências -->
+                <div class="subject-card card-science" data-subject="ciencias">
+                    <div class="subject-card-body">
+                        <div class="subject-icon">
+                            <i data-lucide="orbit"></i>
+                        </div>
+                        <h3>Ciências</h3>
+                        <p>Explore o sistema solar, fotossíntese, corpo humano e ecologia.</p>
+                        <div class="subject-status">
+                            <span id="status-ciencias">Nível 1 - Básico</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-subject btn-3d btn-science-theme btn-start-subject" data-subject="ciencias">
+                        <span>Jogar Lição</span>
+                        <i data-lucide="play"></i>
+                    </button>
+                </div>
+
+                <!-- Card de Português -->
+                <div class="subject-card card-portuguese" data-subject="portugues">
+                    <div class="subject-card-body">
+                        <div class="subject-icon">
+                            <i data-lucide="book-a"></i>
+                        </div>
+                        <h3>Português</h3>
+                        <p>Regras gramaticais, ortografia, antônimos e sinonímia.</p>
+                        <div class="subject-status">
+                            <span id="status-portugues">Nível 1 - Básico</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-subject btn-3d btn-portuguese-theme btn-start-subject" data-subject="portugues">
+                        <span>Jogar Lição</span>
+                        <i data-lucide="play"></i>
+                    </button>
+                </div>
+
+                <!-- Card de História -->
+                <div class="subject-card card-history" data-subject="historia">
+                    <div class="subject-card-body">
+                        <div class="subject-icon">
+                            <i data-lucide="hourglass"></i>
+                        </div>
+                        <h3>História</h3>
+                        <p>Fatos históricos, civilizações antigas e a evolução do Brasil.</p>
+                        <div class="subject-status">
+                            <span id="status-historia">Nível 1 - Básico</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-subject btn-3d btn-history-theme btn-start-subject" data-subject="historia">
+                        <span>Jogar Lição</span>
+                        <i data-lucide="play"></i>
+                    </button>
+                </div>
+
+                <!-- Card de Geografia -->
+                <div class="subject-card card-geography" data-subject="geografia">
+                    <div class="subject-card-body">
+                        <div class="subject-icon">
+                            <i data-lucide="globe-2"></i>
+                        </div>
+                        <h3>Geografia</h3>
+                        <p>Continentes, capitais do mundo, climas e relevos terrestres.</p>
+                        <div class="subject-status">
+                            <span id="status-geografia">Nível 1 - Básico</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-subject btn-3d btn-geography-theme btn-start-subject" data-subject="geografia">
+                        <span>Jogar Lição</span>
+                        <i data-lucide="play"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VISTA: LESSON PLAYER ================= -->
+        <section id="lesson-view" class="view-section hidden">
+            <!-- Barra Superior da Lição -->
+            <div class="lesson-header">
+                <button id="btn-quit-lesson" class="btn-close-lesson" title="Sair da Lição">
+                    <i data-lucide="x"></i>
+                </button>
+                <div class="lesson-progress-bar-container">
+                    <div id="lesson-progress-fill" class="lesson-progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="lesson-hearts" title="Chances Restantes">
+                    <i data-lucide="heart" class="heart-icon fill-red" id="heart-1"></i>
+                    <i data-lucide="heart" class="heart-icon fill-red" id="heart-2"></i>
+                    <i data-lucide="heart" class="heart-icon fill-red" id="heart-3"></i>
+                </div>
+            </div>
+
+            <!-- Card Central da Questão -->
+            <div id="quiz-container" class="quiz-container">
+                <div class="question-pill-wrapper">
+                    <span id="question-subject-badge" class="question-badge">MATÉRIA</span>
+                </div>
+                <h2 id="question-text" class="question-text">Carregando pergunta...</h2>
+
+                <!-- Opções de Resposta -->
+                <div id="options-grid" class="options-grid">
+                    <!-- Gerado Dinamicamente -->
+                </div>
+            </div>
+
+            <!-- Painel de Feedback Inferior -->
+            <div id="feedback-bar" class="feedback-bar">
+                <div class="feedback-content">
+                    <div class="feedback-message-container hidden" id="feedback-correct">
+                        <div class="feedback-icon bg-correct">
+                            <i data-lucide="check-circle-2"></i>
+                        </div>
+                        <div class="feedback-text">
+                            <h4>Excelente! Resposta Correta.</h4>
+                            <p>Muito bem! Continue assim.</p>
+                        </div>
+                    </div>
+                    <div class="feedback-message-container hidden" id="feedback-incorrect">
+                        <div class="feedback-icon bg-incorrect">
+                            <i data-lucide="alert-circle"></i>
+                        </div>
+                        <div class="feedback-text">
+                            <h4>Ah não, incorreto!</h4>
+                            <p>Resposta correta: <strong id="correct-answer-text">Opção X</strong></p>
+                        </div>
+                    </div>
+                    <div class="feedback-actions">
+                        <button id="btn-action-quiz" class="btn btn-success btn-lg btn-3d disabled">
+                            <span>Verificar</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VISTA: RECAPITULAÇÃO ================= -->
+        <section id="recap-view" class="view-section hidden">
+            <div class="recap-card animate-zoom">
+                <div class="recap-logo-wrapper">
+                    <img src="logo.png" alt="EDULIMGO Logo" class="recap-logo">
+                </div>
+                <h1 id="recap-title">Lição Concluída!</h1>
+                <p id="recap-subtitle">Parabéns! Você concluiu a lição e reforçou seu conhecimento escolar.</p>
+
+                <div class="recap-stats-grid">
+                    <div class="recap-stat-card">
+                        <div class="recap-stat-icon text-orange">
+                            <i data-lucide="sparkles"></i>
+                        </div>
+                        <span class="recap-stat-value" id="recap-xp">+15 XP</span>
+                        <span class="recap-stat-label">Ganhos</span>
+                    </div>
+                    <div class="recap-stat-card">
+                        <div class="recap-stat-icon text-green">
+                            <i data-lucide="check-circle"></i>
+                        </div>
+                        <span class="recap-stat-value" id="recap-accuracy">100%</span>
+                        <span class="recap-stat-label">Precisão</span>
+                    </div>
+                    <div class="recap-stat-card">
+                        <div class="recap-stat-icon text-red">
+                            <i data-lucide="flame"></i>
+                        </div>
+                        <span class="recap-stat-value" id="recap-streak">2 Dias</span>
+                        <span class="recap-stat-label">Ofensiva</span>
+                    </div>
+                </div>
+
+                <button id="btn-recap-done" class="btn btn-primary btn-lg btn-3d w-full mt-6">
+                    <span>Voltar ao Painel</span>
+                    <i data-lucide="home"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= VISTA: PERFIL DO ALUNO ================= -->
+        <section id="profile-view" class="view-section hidden">
+            <h2 class="section-title">Meu Perfil</h2>
+            
+            <div class="profile-layout">
+                <!-- Bloco de Informações Básicas -->
+                <div class="profile-card profile-bio-card">
+                    <div class="profile-avatar-large">
+                        <i data-lucide="graduation-cap"></i>
+                    </div>
+                    <div class="profile-bio-details">
+                        <h3 id="profile-name-val">Estudante Edulimgo</h3>
+                        <p class="profile-join-date">Membro desde Junho de 2026</p>
+                        <div class="name-edit-form">
+                            <input type="text" id="input-edit-name" placeholder="Alterar apelido..." maxlength="20">
+                            <button id="btn-save-name" class="btn btn-sm btn-primary btn-3d">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Painel de Conquistas -->
+                <div class="profile-card profile-achievements-card">
+                    <h3>Minhas Conquistas</h3>
+                    <p class="subtitle">Desafie a si mesmo para desbloquear todas as insígnias!</p>
+                    
+                    <div class="achievements-grid">
+                        <div class="badge-card locked" id="badge-first-lesson">
+                            <div class="badge-icon">
+                                <i data-lucide="rocket"></i>
+                            </div>
+                            <h4>Decolagem</h4>
+                            <p>Concluiu a primeira lição escolar.</p>
+                        </div>
+                        <div class="badge-card locked" id="badge-perfect-lesson">
+                            <div class="badge-icon">
+                                <i data-lucide="shield-check"></i>
+                            </div>
+                            <h4>Imbatível</h4>
+                            <p>Concluiu uma lição sem errar nada.</p>
+                        </div>
+                        <div class="badge-card locked" id="badge-five-lessons">
+                            <div class="badge-icon">
+                                <i data-lucide="gem"></i>
+                            </div>
+                            <h4>Cérebro de Ouro</h4>
+                            <p>Concluiu 5 lições no total.</p>
+                        </div>
+                        <div class="badge-card locked" id="badge-streak-3">
+                            <div class="badge-icon">
+                                <i data-lucide="flame"></i>
+                            </div>
+                            <h4>Em Chamas</h4>
+                            <p>Atingiu uma ofensiva de 3 dias seguidos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Ações Extras -->
+            <div class="profile-actions-bottom">
+                <button id="btn-reset-progress" class="btn btn-danger btn-3d">
+                    <i data-lucide="trash-2"></i>
+                    <span>Reiniciar Todo Progresso</span>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé -->
+    <footer id="main-footer" class="main-footer">
+        <p>&copy; 2026 EDULIMGO. Desenvolvido para tornar o estudo das matérias escolares divertido e engajador.</p>
+    </footer>
+
+    <!-- Script Principal -->
+    <script src="app.js"></script>
+</body>
+</html>
