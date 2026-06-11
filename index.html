@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="solarX ODS 4 - Uma plataforma de aprendizagem divertida, gamificada e interativa para alunos do Ensino Fundamental, baseada na ODS 4 de Educação de Qualidade da ONU.">
+  <title>solarX ODS 4 - Plataforma Educacional Gamificada</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" aria-label="Navegação Principal">
+      <div class="logo-container">
+        <div class="logo-icon">☀️</div>
+        <h1 class="logo-text">solar<span>X</span></h1>
+      </div>
+      <ul class="nav-links">
+        <li class="nav-item active" data-view="dashboard">
+          <button type="button" id="nav-btn-dashboard" aria-label="Aprender Matérias">
+            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>Aprender</span>
+          </button>
+        </li>
+        <li class="nav-item" data-view="leaderboard">
+          <button type="button" id="nav-btn-leaderboard" aria-label="Ver Placar de Líderes">
+            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+            <span>Placar</span>
+          </button>
+        </li>
+        <li class="nav-item" data-view="profile">
+          <button type="button" id="nav-btn-profile" aria-label="Ver Meu Perfil">
+            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>Perfil</span>
+          </button>
+        </li>
+      </ul>
+      <button class="theme-toggle-btn" id="theme-toggle" type="button" aria-label="Alternar Tema Escuro/Claro">
+        <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <span>Modo Escuro</span>
+      </button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="main-content-area">
+      <!-- Top Status Indicators Panel -->
+      <header class="top-status-bar" id="top-status-bar">
+        <div class="status-indicator xp" title="Sua pontuação de Experiência (XP)">
+          <span class="status-icon" role="img" aria-label="XP">⚡</span>
+          <span id="stat-xp">0</span> XP
+        </div>
+        <div class="status-indicator lives" title="Suas vidas (erros custam vidas!)">
+          <span class="status-icon" role="img" aria-label="Vidas">❤️</span>
+          <span id="stat-lives">5</span>
+        </div>
+        <div class="status-indicator streak" title="Dias seguidos estudando (Ofensiva)">
+          <span class="status-icon" role="img" aria-label="Ofensiva">🔥</span>
+          <span id="stat-streak">1</span> dia
+        </div>
+        <div class="status-indicator level" title="Seu nível atual de estudante">
+          <span class="status-icon" role="img" aria-label="Nível">⭐</span>
+          <span>Nível <span id="stat-level">1</span></span>
+        </div>
+      </header>
+
+      <!-- App Views (Single Page Router Containers) -->
+      
+      <!-- 1. DASHBOARD VIEW (Subjects Selection) -->
+      <section id="view-dashboard" class="app-view">
+        <h2 class="dashboard-title">Olá, Estudante! 👋</h2>
+        <p class="dashboard-subtitle">Escolha uma matéria abaixo para começar sua jornada de conhecimento!</p>
+        <div class="subjects-grid" id="subjects-grid-container">
+          <!-- Dynamic injected subject cards -->
+        </div>
+      </section>
+
+      <!-- 2. SUBJECT DETAILS VIEW (Lessons & Videos lists) -->
+      <section id="view-subject" class="app-view" style="display: none;">
+        <button class="back-btn" id="subject-back-btn" type="button">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Voltar para as Matérias
+        </button>
+        <div class="subject-details-container" id="subject-details-content">
+          <!-- Dynamically injected subject banner, lessons list, and videos list -->
+        </div>
+      </section>
+
+      <!-- 3. INTERACTIVE QUIZ LESSON VIEW -->
+      <section id="view-quiz" class="app-view" style="display: none;">
+        <div class="quiz-container">
+          <header class="quiz-header">
+            <button class="quiz-close-btn" id="quiz-close-btn" type="button" aria-label="Sair da lição">
+              <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div class="quiz-progress-wrapper" aria-label="Progresso da lição">
+              <div class="progress-bar-outer">
+                <div class="progress-bar-inner" id="quiz-progress-bar" style="width: 0%; background-color: var(--color-green-light);"></div>
+              </div>
+            </div>
+          </header>
+
+          <div class="quiz-body" id="quiz-question-box">
+            <!-- Dynamic quiz question, options injected here -->
+          </div>
+
+          <footer class="quiz-footer">
+            <button class="btn-tactile btn-disabled" id="quiz-submit-btn" type="button" disabled>Verificar Resposta</button>
+          </footer>
+        </div>
+
+        <!-- Pop-up Dynamic Feedback Bar at the bottom -->
+        <div class="quiz-feedback-bar" id="quiz-feedback-bar">
+          <div class="feedback-content-wrapper">
+            <div class="feedback-details">
+              <div class="feedback-icon" id="feedback-icon">✓</div>
+              <div class="feedback-text">
+                <div class="feedback-text-title" id="feedback-title">Excelente!</div>
+                <div class="feedback-text-desc" id="feedback-desc">Sua resposta está correta.</div>
+              </div>
+            </div>
+            <button class="btn-tactile" id="feedback-continue-btn" type="button">Continuar</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. VIDEO PLAYER PORTAL VIEW -->
+      <section id="view-video" class="app-view" style="display: none;">
+        <button class="back-btn" id="video-back-btn" type="button">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Voltar para a Matéria
+        </button>
+        <div class="video-player-container" id="video-player-content">
+          <!-- Embedded YouTube player and description injected here -->
+        </div>
+      </section>
+
+      <!-- 5. LEADERBOARD VIEW -->
+      <section id="view-leaderboard" class="app-view" style="display: none;">
+        <div class="leaderboard-container">
+          <header class="leaderboard-header">
+            <h2>🏆 Liga dos Campeões</h2>
+            <p>Veja sua posição em relação a outros estudantes da plataforma!</p>
+          </header>
+          <div class="leaderboard-list" id="leaderboard-list-container">
+            <!-- Dynamic leaderboard users injected here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. PROFILE VIEW -->
+      <section id="view-profile" class="app-view" style="display: none;">
+        <div class="profile-container">
+          <!-- Left side: Avatar and stats -->
+          <div class="profile-card">
+            <div class="avatar-wrapper">
+              <div class="avatar-image" id="profile-avatar">👦</div>
+              <button class="change-avatar-btn" id="change-avatar-btn" type="button" title="Trocar Avatar">✏️</button>
+            </div>
+            <h3 class="profile-name" id="profile-name-display">Estudante solarX</h3>
+            <p class="profile-joined">Estudando desde Junho de 2026</p>
+            
+            <div class="profile-stats-grid">
+              <div class="stat-box" title="Sua experiência total">
+                <span style="font-size: 24px;">⚡</span>
+                <div>
+                  <div class="stat-box-val" id="profile-stat-xp">0</div>
+                  <div class="stat-box-label">XP Total</div>
+                </div>
+              </div>
+              <div class="stat-box" title="Dias seguidos jogando">
+                <span style="font-size: 24px;">🔥</span>
+                <div>
+                  <div class="stat-box-val" id="profile-stat-streak">1</div>
+                  <div class="stat-box-label">Ofensiva</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right side: Badges and Achievements -->
+          <div class="badges-container">
+            <h2>🏅 Conquistas Desbloqueadas</h2>
+            <div class="badges-grid" id="badges-grid-container">
+              <!-- Injected achievements/badges -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Load our lessons database first -->
+  <script src="lessons.js"></script>
+  <!-- Load our engine script -->
+  <script src="app.js"></script>
+</body>
+</html>
