@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-# EDULIMGO
 
 EDULIMGO é uma plataforma web interativa e gamificada projetada para tornar o estudo de matérias escolares do ensino fundamental e médio divertido e engajador.
-
 A plataforma cobre tópicos essenciais de:
 - **Matemática** (Fração, Equações, Geometria, etc.)
 - **Ciências** (Sistema Solar, Fotossíntese, Anatomia, etc.)
@@ -20,8 +17,7 @@ A plataforma cobre tópicos essenciais de:
 ## Como Executar
 1. Certifique-se de ter todos os arquivos (`index.html`, `style.css`, `app.js`, `logo.png`) na mesma pasta.
 2. Abra o arquivo `index.html` em qualquer navegador moderno.
-3. Se preferir, inicie um servidor web local e acesse no endereço correspondente.
-=======
+
 # ☀️ solarX Educação (EduLingo ODS 4)
 
 Este projeto foi reestruturado para atender à **ODS 4 (Educação de Qualidade)** da ONU, transformando-se em uma plataforma educacional gamificada de alta interatividade voltada para alunos do Ensino Fundamental.
@@ -74,4 +70,3 @@ Para obter a melhor experiência com a API do YouTube (evitando bloqueios de ori
   python -m http.server 8000
   ```
   Depois abra `http://localhost:8000` (ou a porta indicada) no seu navegador.
->>>>>>> b5bb9150c83dcd1ea9acc56a7b55b81582cc46e5
